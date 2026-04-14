@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌕 Luna AI Research Center - Об'єднана система</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;600&display=swap");
+        
+        body {
+            font-family: "Exo 2", sans-serif;
+            background: linear-gradient(135deg, #0a0a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 1px, transparent 0),
+                radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.06) 1px, transparent 0),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.07) 1px, transparent 0);
+            background-size: 120px 120px;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 8s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.5;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(103, 232, 249, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(103, 232, 249, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 60px rgba(103, 232, 249, 0.35);
+            border-color: rgba(103, 232, 249, 0.5);
+        }
+
+        .module-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #67e8f9, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="relative z-10 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="pt-16 pb-8 text-center">
+            <div class="text-8xl mb-4 drop-shadow-[0_0_30px_#67e8f9]">🌕</div>
+            <h1 class="text-6xl md:text-7xl font-bold tracking-widest gradient-text mb-4" style="font-family: 'Orbitron', sans-serif;">
+                LUNA AI CENTER
+            </h1>
+            <p class="text-cyan-300/90 text-2xl drop-shadow-lg">Об'єднана система досліджень Місяця</p>
+            <p class="text-cyan-400/70 text-lg mt-2">Енергія • Радіація • Теплопередача</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto px-4 py-12 w-full">
+            <!-- Info Section -->
+            <section class="mb-16 glass-card p-12 rounded-3xl text-center">
+                <h2 class="text-3xl font-bold text-cyan-300 mb-6">добро пожалуй до об'єднаної системи!</h2>
+                <p class="text-cyan-100 text-lg leading-relaxed max-w-2xl mx-auto">
+                    Це єдина платформа для трьох революційних дослідницьких проектів, присвячених вивченню умов Місяця. 
+                    Вибери модуль нижче, щоб розпочати моделювання та аналіз.
+                </p>
+            </section>
+
+            <!-- Modules Grid -->
+            <section class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Energy Module -->
+                <a href="/energy" class="module-link">
+                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                        <div>
+                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">☀️</div>
+                            <h3 class="text-2xl font-bold text-cyan-300 mb-2">LunaEnergy AI</h3>
+                            <p class="text-cyan-100">Ефективність сонячних панелей на Місяці</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-cyan-500/30">
+                            <p class="text-sm text-cyan-400">Моделювання • Аналітика • Порівняння</p>
+                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg transition-all">
+                                Відкрити модуль →
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Radiation Module -->
+                <a href="/radiation" class="module-link">
+                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                        <div>
+                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">☢️</div>
+                            <h3 class="text-2xl font-bold text-purple-300 mb-2">LunaRadiation AI</h3>
+                            <p class="text-cyan-100">Моделювання захисту від космічної радіації</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-purple-500/30">
+                            <p class="text-sm text-purple-400">Розрахунки • Матеріали • Безпека</p>
+                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all">
+                                Відкрити модуль →
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Thermo Module -->
+                <a href="/thermo" class="module-link">
+                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                        <div>
+                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">🌡️</div>
+                            <h3 class="text-2xl font-bold text-orange-300 mb-2">LunaThermo AI</h3>
+                            <p class="text-cyan-100">Моделювання теплопередачі на Місяці</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-orange-500/30">
+                            <p class="text-sm text-orange-400">Розрахунки • Аналітика • Рекомендації</p>
+                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-bold rounded-lg transition-all">
+                                Відкрити модуль →
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
+            <!-- Features Section -->
+            <section class="glass-card p-12 rounded-3xl">
+                <h2 class="text-3xl font-bold text-cyan-300 mb-8 text-center">✨ можливості платформи</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flex gap-4">
+                        <div class="text-3xl">📊</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-cyan-200 mb-2">Реальні розрахунки</h4>
+                            <p class="text-cyan-100">Точні математичні моделі фізичних процесів на Місяці</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">💾</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-cyan-200 mb-2">Збереження даних</h4>
+                            <p class="text-cyan-100">Усі експерименти автоматично зберігаються в БД</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">📈</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-cyan-200 mb-2">Аналітика</h4>
+                            <p class="text-cyan-100">Детальна статистика та порівняльні аналізи результатів</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">🎯</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-cyan-200 mb-2">Інтуїтивний інтерфейс</h4>
+                            <p class="text-cyan-100">Просто введи параметри та отримай результати</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="relative z-10 py-8 text-center text-cyan-400/70 border-t border-cyan-500/20 mt-16">
+            <p>🌕 Luna AI Research Center 2026 | Об'єднана система досліджень Місяця</p>
+            <p class="text-sm mt-2">LunaEnergy • LunaRadiation • LunaThermo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Елементи сторінки готові до інтерактивності
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🌕 Luna AI Center загружено успішно!');
+        });
+    </script>
+</body>
+</html>
