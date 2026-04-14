@@ -56,6 +56,22 @@ async function initializeDatabase() {
     `);
     console.log('✅ Таблиця thermo_experiments готова');
 
+    // Таблиця для Artemis місій
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS artemis_missions (
+        id SERIAL PRIMARY KEY,
+        mission_name TEXT NOT NULL,
+        crew_size INTEGER NOT NULL,
+        mission_duration_days FLOAT NOT NULL,
+        delta_v_total FLOAT NOT NULL,
+        radiation_exposure_msv FLOAT NOT NULL,
+        safety_index TEXT NOT NULL,
+        mission_notes TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('✅ Таблиця artemis_missions готова');
+
     console.log('🌕 Усі таблиці ініціалізовано успішно!');
   } catch (err) {
     console.error('❌ Помилка ініціалізації БД:', err.message);

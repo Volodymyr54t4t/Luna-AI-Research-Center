@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌕 Luna AI Research Center - Об'єднана система</title>
+    <meta name="description" content="Об'єднана платформа для наукового моделювання умов Місяця з модулями енергії, радіації, термодинаміки та Artemis 2">
+    <meta name="theme-color" content="#67e8f9">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/icon-192.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@400;600&display=swap");
@@ -72,39 +77,63 @@
     
     <div class="relative z-10 min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="pt-16 pb-8 text-center">
+        <header class="pt-16 pb-8 text-center relative">
+            <button id="mobileMenuBtn" class="md:hidden absolute top-4 right-4 z-50 p-2 bg-white/10 rounded-lg">
+                <span class="text-2xl">☰</span>
+            </button>
             <div class="text-8xl mb-4 drop-shadow-[0_0_30px_#67e8f9]">🌕</div>
             <h1 class="text-6xl md:text-7xl font-bold tracking-widest gradient-text mb-4" style="font-family: 'Orbitron', sans-serif;">
                 LUNA AI CENTER
             </h1>
             <p class="text-cyan-300/90 text-2xl drop-shadow-lg">Об'єднана система досліджень Місяця</p>
-            <p class="text-cyan-400/70 text-lg mt-2">Енергія • Радіація • Теплопередача</p>
+            <p class="text-cyan-400/70 text-lg mt-2">Енергія • Радіація • Теплопередача • Artemis 2</p>
         </header>
 
-        <!-- Main Content -->
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="fixed inset-0 bg-black/90 backdrop-blur-lg z-40 hidden md:hidden">
+            <div class="flex flex-col items-center justify-center h-full space-y-8">
+                <button id="closeMobileMenu" class="absolute top-4 right-4 text-3xl text-white">✕</button>
+                <a href="/energy" class="text-2xl text-cyan-300 hover:text-cyan-100 transition">☀️ LunaEnergy AI</a>
+                <a href="/radiation" class="text-2xl text-purple-300 hover:text-purple-100 transition">☢️ LunaRadiation AI</a>
+                <a href="/thermo" class="text-2xl text-orange-300 hover:text-orange-100 transition">🌡️ LunaThermo AI</a>
+                <a href="/artemis" class="text-2xl text-amber-300 hover:text-amber-100 transition">🚀 Artemis 2 Lab</a>
+                <a href="/analytics.html" class="text-2xl text-green-300 hover:text-green-100 transition">📊 Аналітика</a>
+            </div>
+        </div>
         <main class="flex-1 max-w-7xl mx-auto px-4 py-12 w-full">
-            <!-- Info Section -->
-            <section class="mb-16 glass-card p-12 rounded-3xl text-center">
-                <h2 class="text-3xl font-bold text-cyan-300 mb-6">добро пожалуй до об'єднаної системи!</h2>
-                <p class="text-cyan-100 text-lg leading-relaxed max-w-2xl mx-auto">
-                    Це єдина платформа для трьох революційних дослідницьких проектів, присвячених вивченню умов Місяця. 
-                    Вибери модуль нижче, щоб розпочати моделювання та аналіз.
-                </p>
+            <!-- Search Bar -->
+            <section class="mb-8 glass-card p-6 rounded-3xl">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1 w-full">
+                        <input type="text" id="globalSearch" placeholder="🔍 Пошук по всіх модулях..." 
+                               class="w-full px-4 py-3 bg-black/30 border border-cyan-500/30 rounded-xl text-white placeholder-cyan-300/50 focus:border-cyan-400 focus:outline-none">
+                    </div>
+                    <button id="searchBtn" class="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all">
+                        Пошук
+                    </button>
+                    <button id="exportAllBtn" class="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold rounded-xl transition-all">
+                        📥 Експорт всіх даних
+                    </button>
+                </div>
+                <div id="searchResults" class="mt-4 hidden">
+                    <h4 class="text-cyan-300 font-bold mb-2">Результати пошуку:</h4>
+                    <div id="searchResultsContent" class="space-y-2"></div>
+                </div>
             </section>
 
             <!-- Modules Grid -->
-            <section class="grid md:grid-cols-3 gap-8 mb-12">
+            <section id="modulesGrid" class="grid md:grid-cols-4 gap-6 mb-12">
                 <!-- Energy Module -->
                 <a href="/energy" class="module-link">
-                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                    <div class="glass-card p-6 md:p-8 rounded-3xl h-full flex flex-col justify-between group">
                         <div>
-                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">☀️</div>
-                            <h3 class="text-2xl font-bold text-cyan-300 mb-2">LunaEnergy AI</h3>
-                            <p class="text-cyan-100">Ефективність сонячних панелей на Місяці</p>
+                            <div class="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform">☀️</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-cyan-300 mb-2">LunaEnergy AI</h3>
+                            <p class="text-cyan-100 text-sm md:text-base">Ефективність сонячних панелей на Місяці</p>
                         </div>
-                        <div class="mt-6 pt-6 border-t border-cyan-500/30">
-                            <p class="text-sm text-cyan-400">Моделювання • Аналітика • Порівняння</p>
-                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg transition-all">
+                        <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-cyan-500/30">
+                            <p class="text-xs md:text-sm text-cyan-400">Моделювання • Аналітика • Порівняння</p>
+                            <button class="mt-3 md:mt-4 w-full py-2 md:py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg transition-all text-sm md:text-base">
                                 Відкрити модуль →
                             </button>
                         </div>
@@ -113,15 +142,15 @@
 
                 <!-- Radiation Module -->
                 <a href="/radiation" class="module-link">
-                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                    <div class="glass-card p-6 md:p-8 rounded-3xl h-full flex flex-col justify-between group">
                         <div>
-                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">☢️</div>
-                            <h3 class="text-2xl font-bold text-purple-300 mb-2">LunaRadiation AI</h3>
-                            <p class="text-cyan-100">Моделювання захисту від космічної радіації</p>
+                            <div class="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform">☢️</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-purple-300 mb-2">LunaRadiation AI</h3>
+                            <p class="text-cyan-100 text-sm md:text-base">Моделювання захисту від космічної радіації</p>
                         </div>
-                        <div class="mt-6 pt-6 border-t border-purple-500/30">
-                            <p class="text-sm text-purple-400">Розрахунки • Матеріали • Безпека</p>
-                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all">
+                        <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-purple-500/30">
+                            <p class="text-xs md:text-sm text-purple-400">Розрахунки • Матеріали • Безпека</p>
+                            <button class="mt-3 md:mt-4 w-full py-2 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-lg transition-all text-sm md:text-base">
                                 Відкрити модуль →
                             </button>
                         </div>
@@ -130,15 +159,32 @@
 
                 <!-- Thermo Module -->
                 <a href="/thermo" class="module-link">
-                    <div class="glass-card p-8 rounded-3xl h-full flex flex-col justify-between group">
+                    <div class="glass-card p-6 md:p-8 rounded-3xl h-full flex flex-col justify-between group">
                         <div>
-                            <div class="text-7xl mb-4 group-hover:scale-110 transition-transform">🌡️</div>
-                            <h3 class="text-2xl font-bold text-orange-300 mb-2">LunaThermo AI</h3>
-                            <p class="text-cyan-100">Моделювання теплопередачі на Місяці</p>
+                            <div class="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform">🌡️</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-orange-300 mb-2">LunaThermo AI</h3>
+                            <p class="text-cyan-100 text-sm md:text-base">Моделювання теплопередачі на Місяці</p>
                         </div>
-                        <div class="mt-6 pt-6 border-t border-orange-500/30">
-                            <p class="text-sm text-orange-400">Розрахунки • Аналітика • Рекомендації</p>
-                            <button class="mt-4 w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-bold rounded-lg transition-all">
+                        <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-orange-500/30">
+                            <p class="text-xs md:text-sm text-orange-400">Розрахунки • Аналітика • Рекомендації</p>
+                            <button class="mt-3 md:mt-4 w-full py-2 md:py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-bold rounded-lg transition-all text-sm md:text-base">
+                                Відкрити модуль →
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Artemis Module -->
+                <a href="/artemis" class="module-link">
+                    <div class="glass-card p-6 md:p-8 rounded-3xl h-full flex flex-col justify-between group">
+                        <div>
+                            <div class="text-6xl md:text-7xl mb-4 group-hover:scale-110 transition-transform">🚀</div>
+                            <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">Artemis 2 Lab</h3>
+                            <p class="text-cyan-100 text-sm md:text-base">Траєкторії, ΔV та радіаційні оцінки для Artemis II</p>
+                        </div>
+                        <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-amber-500/30">
+                            <p class="text-xs md:text-sm text-amber-400">Місія • Траєкторія • Безпека</p>
+                            <button class="mt-3 md:mt-4 w-full py-2 md:py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold rounded-lg transition-all text-sm md:text-base">
                                 Відкрити модуль →
                             </button>
                         </div>
@@ -146,7 +192,28 @@
                 </a>
             </section>
 
-            <!-- Features Section -->
+            <!-- System Status -->
+            <section class="mb-8 glass-card p-6 rounded-3xl">
+                <h2 class="text-2xl font-bold text-cyan-300 mb-4">📊 Стан системи</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400" id="totalExperiments">-</div>
+                        <div class="text-sm text-cyan-400">Експериментів</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-400" id="systemUptime">-</div>
+                        <div class="text-sm text-cyan-400">Час роботи</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-400" id="memoryUsage">-</div>
+                        <div class="text-sm text-cyan-400">Пам'ять</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-orange-400" id="systemStatus">●</div>
+                        <div class="text-sm text-cyan-400">Статус</div>
+                    </div>
+                </div>
+            </section>
             <section class="glass-card p-12 rounded-3xl">
                 <h2 class="text-3xl font-bold text-cyan-300 mb-8 text-center">✨ можливості платформи</h2>
                 <div class="grid md:grid-cols-2 gap-8">
@@ -178,6 +245,13 @@
                             <p class="text-cyan-100">Просто введи параметри та отримай результати</p>
                         </div>
                     </div>
+                    <div class="flex gap-4">
+                        <div class="text-3xl">🛰️</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-cyan-200 mb-2">Місія Artemis</h4>
+                            <p class="text-cyan-100">Розрахунки траєкторії та безпеки для сучасної місячної місії</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -193,7 +267,358 @@
         // Елементи сторінки готові до інтерактивності
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🌕 Luna AI Center загружено успішно!');
+
+            // Мобільне меню
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+            mobileMenuBtn?.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
+
+            closeMobileMenu?.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            // Закриття меню при кліку поза ним
+            mobileMenu?.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Офлайн індикатор
+            const offlineIndicator = document.createElement('div');
+            offlineIndicator.id = 'offlineIndicator';
+            offlineIndicator.className = 'fixed top-4 left-4 z-50 px-4 py-2 bg-red-600 text-white rounded-lg hidden';
+            offlineIndicator.textContent = '🔴 Офлайн режим';
+            document.body.appendChild(offlineIndicator);
+
+            window.addEventListener('online', () => {
+                offlineIndicator.classList.add('hidden');
+                showNotification('🟢 З\'єднання відновлено', 'success');
+            });
+
+            window.addEventListener('offline', () => {
+                offlineIndicator.classList.remove('hidden');
+                showNotification('🔴 Немає з\'єднання з інтернетом', 'error');
+            });
+
+            // Темна/світла тема
+            const themeToggle = document.createElement('button');
+            themeToggle.id = 'themeToggle';
+            themeToggle.className = 'fixed bottom-4 left-4 z-50 p-3 bg-white/10 backdrop-blur-lg rounded-full shadow-lg hover:bg-white/20 transition';
+            themeToggle.innerHTML = '🌙';
+            themeToggle.title = 'Перемкнути тему';
+            document.body.appendChild(themeToggle);
+
+            themeToggle.addEventListener('click', () => {
+                const body = document.body;
+                if (body.dataset.theme === 'dark') {
+                    body.dataset.theme = 'light';
+                    body.classList.remove('bg-[#05070f]', 'text-white');
+                    body.classList.add('bg-gray-100', 'text-gray-900');
+                    themeToggle.innerHTML = '☀️';
+                    document.querySelectorAll('.glass-card').forEach(el => {
+                        el.style.background = 'rgba(255,255,255,0.75)';
+                        el.style.borderColor = 'rgba(59,130,246,0.3)';
+                    });
+                } else {
+                    body.dataset.theme = 'dark';
+                    body.classList.remove('bg-gray-100', 'text-gray-900');
+                    body.classList.add('bg-[#05070f]', 'text-white');
+                    themeToggle.innerHTML = '🌙';
+                    document.querySelectorAll('.glass-card').forEach(el => {
+                        el.style.background = 'rgba(15,23,42,0.65)';
+                        el.style.borderColor = 'rgba(103,232,249,0.2)';
+                    });
+                }
+            });
+
+            // Глобальний пошук
+            const globalSearch = document.getElementById('globalSearch');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchResults = document.getElementById('searchResults');
+            const searchResultsContent = document.getElementById('searchResultsContent');
+
+            async function performGlobalSearch(query) {
+                if (!query.trim()) {
+                    searchResults.classList.add('hidden');
+                    return;
+                }
+
+                try {
+                    const [energyRes, radiationRes, thermoRes, artemisRes] = await Promise.all([
+                        fetch('/api/energy/experiments'),
+                        fetch('/api/radiation/experiments'),
+                        fetch('/api/thermo/experiments'),
+                        fetch('/api/artemis/experiments')
+                    ]);
+
+                    const [energyData, radiationData, thermoData, artemisData] = await Promise.all([
+                        energyRes.json(),
+                        radiationRes.json(),
+                        thermoRes.json(),
+                        artemisRes.json()
+                    ]);
+
+                    const results = [];
+
+                    // Пошук в енергетичних даних
+                    energyData.forEach(exp => {
+                        if (JSON.stringify(exp).toLowerCase().includes(query.toLowerCase())) {
+                            results.push({
+                                module: 'LunaEnergy AI',
+                                type: 'Експеримент',
+                                id: exp.id,
+                                link: '/energy',
+                                description: `Ефективність: ${exp.efficiency}%, Кут: ${exp.angle}°`
+                            });
+                        }
+                    });
+
+                    // Пошук в радіаційних даних
+                    radiationData.forEach(exp => {
+                        if (JSON.stringify(exp).toLowerCase().includes(query.toLowerCase())) {
+                            results.push({
+                                module: 'LunaRadiation AI',
+                                type: 'Експеримент',
+                                id: exp.id,
+                                link: '/radiation',
+                                description: `Матеріал: ${exp.material}, Проникнення: ${exp.penetration}`
+                            });
+                        }
+                    });
+
+                    // Пошук в термо даних
+                    thermoData.forEach(exp => {
+                        if (JSON.stringify(exp).toLowerCase().includes(query.toLowerCase())) {
+                            results.push({
+                                module: 'LunaThermo AI',
+                                type: 'Експеримент',
+                                id: exp.id,
+                                link: '/thermo',
+                                description: `Матеріал: ${exp.material}, Тепловтрати: ${exp.heat_loss} Вт`
+                            });
+                        }
+                    });
+
+                    // Пошук в Artemis даних
+                    if (artemisData.data) {
+                        artemisData.data.forEach(exp => {
+                            if (JSON.stringify(exp).toLowerCase().includes(query.toLowerCase())) {
+                                results.push({
+                                    module: 'Artemis 2 Lab',
+                                    type: 'Місія',
+                                    id: exp.id,
+                                    link: '/artemis',
+                                    description: `Місія: ${exp.mission_name}, ΔV: ${exp.delta_v_total} км/с`
+                                });
+                            }
+                        });
+                    }
+
+                    displaySearchResults(results);
+                } catch (error) {
+                    console.error('Помилка пошуку:', error);
+                    searchResultsContent.innerHTML = '<p class="text-red-300">Помилка при пошуку</p>';
+                    searchResults.classList.remove('hidden');
+                }
+            }
+
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResultsContent.innerHTML = '<p class="text-cyan-300">Нічого не знайдено</p>';
+                } else {
+                    searchResultsContent.innerHTML = results.map(result => `
+                        <div class="glass-card p-3 rounded-lg">
+                            <a href="${result.link}" class="block hover:bg-white/5 rounded p-2 transition">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-cyan-300 font-bold">${result.module}</span>
+                                        <span class="text-sm text-cyan-400 ml-2">${result.type} #${result.id}</span>
+                                    </div>
+                                    <span class="text-xs text-cyan-500">→</span>
+                                </div>
+                                <p class="text-sm text-cyan-100 mt-1">${result.description}</p>
+                            </a>
+                        </div>
+                    `).join('');
+                }
+                searchResults.classList.remove('hidden');
+            }
+
+            searchBtn?.addEventListener('click', () => {
+                performGlobalSearch(globalSearch.value);
+            });
+
+            globalSearch?.addEventListener('input', (e) => {
+                if (e.target.value.length > 2) {
+                    performGlobalSearch(e.target.value);
+                } else {
+                    searchResults.classList.add('hidden');
+                }
+            });
+
+            // Експорт всіх даних
+            const exportAllBtn = document.getElementById('exportAllBtn');
+            exportAllBtn?.addEventListener('click', async () => {
+                try {
+                    showNotification('📊 Збираємо дані...', 'info');
+
+                    const [energyRes, radiationRes, thermoRes, artemisRes] = await Promise.all([
+                        fetch('/api/energy/experiments'),
+                        fetch('/api/radiation/experiments'),
+                        fetch('/api/thermo/experiments'),
+                        fetch('/api/artemis/experiments')
+                    ]);
+
+                    const [energyData, radiationData, thermoData, artemisData] = await Promise.all([
+                        energyRes.json(),
+                        radiationRes.json(),
+                        thermoRes.json(),
+                        artemisRes.json()
+                    ]);
+
+                    const allData = {
+                        timestamp: new Date().toISOString(),
+                        luna_energy: energyData,
+                        luna_radiation: radiationData,
+                        luna_thermo: thermoData,
+                        artemis_missions: artemisData.data || []
+                    };
+
+                    const dataStr = JSON.stringify(allData, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(dataBlob);
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `luna_ai_all_data_${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+
+                    showNotification('✅ Дані експортовано!', 'success');
+                } catch (error) {
+                    console.error('Помилка експорту:', error);
+                    showNotification('❌ Помилка експорту даних', 'error');
+                }
+            });
         });
+
+        // Реєстрація Service Worker для PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW зареєстровано:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('SW реєстрація failed:', error);
+                    });
+            });
+        }
+
+        // PWA install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Показати кнопку встановлення
+            const installBtn = document.createElement('button');
+            installBtn.innerHTML = '📱 Встановити додаток';
+            installBtn.className = 'fixed bottom-4 right-4 z-50 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg shadow-lg animate-pulse';
+            installBtn.onclick = () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Користувач встановив PWA');
+                        showNotification('✅ Додаток встановлено!', 'success');
+                    }
+                    deferredPrompt = null;
+                    installBtn.remove();
+                });
+            };
+            document.body.appendChild(installBtn);
+
+            // Автоматичне приховування через 10 сек
+            setTimeout(() => {
+                if (installBtn.parentNode) {
+                    installBtn.remove();
+                }
+            }, 10000);
+        });
+
+        // Сповіщення
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg text-white ${
+                type === 'success' ? 'bg-green-600' :
+                type === 'error' ? 'bg-red-600' : 'bg-blue-600'
+            }`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // CSS анімації
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fade-in {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+                animation: fade-in 0.6s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Завантаження системної інформації
+        async function loadSystemInfo() {
+            try {
+                const [statsRes, infoRes] = await Promise.all([
+                    fetch('/api/system/stats'),
+                    fetch('/api/system/info')
+                ]);
+
+                const stats = await statsRes.json();
+                const info = await infoRes.json();
+
+                document.getElementById('totalExperiments').textContent = stats.total_experiments;
+                document.getElementById('systemUptime').textContent = formatUptime(info.uptime);
+                document.getElementById('memoryUsage').textContent = formatMemory(info.memory_usage.heapUsed);
+                document.getElementById('systemStatus').textContent = '🟢';
+                document.getElementById('systemStatus').className = 'text-2xl font-bold text-green-400';
+            } catch (error) {
+                console.error('Помилка завантаження системної інформації:', error);
+                document.getElementById('systemStatus').textContent = '🔴';
+                document.getElementById('systemStatus').className = 'text-2xl font-bold text-red-400';
+            }
+        }
+
+        function formatUptime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            return `${hours}г ${minutes}х`;
+        }
+
+        function formatMemory(bytes) {
+            const mb = (bytes / 1024 / 1024).toFixed(1);
+            return `${mb} MB`;
+        }
+
+        // Завантаження при старті
+        loadSystemInfo();
+
+        // Оновлення кожні 30 секунд
+        setInterval(loadSystemInfo, 30000);
     </script>
 </body>
 </html>

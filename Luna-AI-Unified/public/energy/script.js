@@ -39,6 +39,7 @@ function switchTab(tabIndex) {
   document.getElementById("tabContent1").classList.toggle("hidden", tabIndex !== 1);
   document.getElementById("tabContent2").classList.toggle("hidden", tabIndex !== 2);
   document.getElementById("tabContent3").classList.toggle("hidden", tabIndex !== 3);
+  document.getElementById("tabContent4").classList.toggle("hidden", tabIndex !== 4);
 
   if (tabIndex === 1) updateAnalytics();
   if (tabIndex === 2) loadCompareOptions();
@@ -411,3 +412,215 @@ document.getElementById("compareBtn")?.addEventListener("click", () => {
 // Початкове завантаження
 loadExperiments();
 switchTab(0);
+
+// Експорт у CSV
+function exportToCSV() {
+  if (experiments.length === 0) {
+    alert('Немає даних для експорту');
+    return;
+  }
+
+  const headers = ['ID', 'Кут (°)', 'Сонце', 'Температура (°C)', 'Пил', 'Ефективність (%)', 'Дата'];
+  const csvContent = [
+    headers.join(','),
+    ...experiments.map(exp => [
+      exp.id,
+      exp.angle,
+      exp.sunlight,
+      exp.temperature,
+      exp.dust,
+      (exp.efficiency * 100).toFixed(2),
+      new Date(exp.created_at).toLocaleString('uk-UA')
+    ].join(','))
+  ].join('\n');
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', `energy_experiments_${new Date().toISOString().split('T')[0]}.csv`);
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// ==================== НОВІ РОЗШИРЕНІ ФУНКЦІЇ ====================
+
+// Порівняння Земля vs Місяць
+async function loadEarthMoonComparison() {
+  try {
+    const res = await fetch(`${API_PREFIX}/compare`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ panelType: 'silicon' })
+    });
+    
+    const data = await res.json();
+    
+    const html = `
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-cyan-400 font-bold mb-4">🌍 Земля</h3>
+          <div class="space-y-3 text-sm">
+            <p>Вироблення: <span class="text-emerald-400 font-bold">${data.earth_generation_per_m2_day} Вт/м²</span></p>
+            <p>Максимальна радіація: <span class="text-cyan-300">${data.earth_generation_per_m2_day}</span> Вт/м²</p>
+            <p>Умови: Атмосфера, день/ніч</p>
+          </div>
+        </div>
+        
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-purple-400 font-bold mb-4">🌙 Місяць</h3>
+          <div class="space-y-3 text-sm">
+            <p>Вироблення: <span class="text-emerald-400 font-bold">${data.moon_generation_per_m2_day} Вт/м²</span></p>
+            <p>Ефективне: <span class="text-cyan-300">${data.moon_generation_effective} Вт/м²</span></p>
+            <p>14 днів темряви, без атмосфери</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-6 glass-card p-6 rounded-2xl bg-gradient-to-r from-purple-900/30 to-pink-900/30">
+        <h3 class="text-yellow-400 font-bold mb-4">⚡ Вивід</h3>
+        <p class="text-lg text-cyan-300">
+          На Місяці вироблення <span class="text-emerald-400 font-bold">${data.advantage_factor}x</span> більше 
+          за ефективне вироблення на Землі, незважаючи на 14 днів темряви!
+        </p>
+      </div>
+    `;
+    
+    const container = document.getElementById('comparisonContainer') || createAdvancedSection('comparisonContainer', 'Порівняння Земля vs Місяць');
+    container.innerHTML = html;
+  } catch (err) {
+    console.error('Помилка порівняння:', err);
+  }
+}
+
+// Вплив пилу на панелі
+async function loadDustImpact() {
+  try {
+    const dustPercentage = document.getElementById('dustPercentage')?.value || 50;
+    
+    const res = await fetch(`${API_PREFIX}/dust-impact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dust_percentage: parseInt(dustPercentage) })
+    });
+    
+    const data = await res.json();
+    
+    const dustBar = (data.current_dust_percentage / 100) * 100;
+    const html = `
+      <div class="space-y-6 mt-6">
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="text-yellow-400 font-bold mb-4">💨 Рівень забруднення</h3>
+          <div class="flex items-center gap-4">
+            <div class="w-full bg-black/40 rounded-full h-6">
+              <div class="bg-gradient-to-r from-green-500 to-red-500 h-6 rounded-full" style="width: ${dustBar}%"></div>
+            </div>
+            <span class="text-2xl font-bold text-cyan-400 min-w-max">${data.current_dust_percentage}%</span>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-xl">
+            <p class="text-sm text-gray-400">Втрати ефективності</p>
+            <p class="text-2xl font-bold text-red-400">${data.efficiency_loss_percent}%</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl">
+            <p class="text-sm text-gray-400">Час до чистки</p>
+            <p class="text-2xl font-bold text-cyan-400">${data.recommended_cleanup_interval_months} місяців</p>
+          </div>
+        </div>
+        
+        <div class="glass-card p-6 rounded-2xl border-l-4 border-yellow-500 ${data.current_dust_percentage > 60 ? 'bg-red-950/30' : data.current_dust_percentage > 40 ? 'bg-yellow-950/30' : 'bg-green-950/30'}">
+          <p class="text-lg font-bold">${data.recommendation}</p>
+        </div>
+      </div>
+    `;
+    
+    const container = document.getElementById('dustContainer') || createAdvancedSection('dustContainer', 'Вплив космічного пилу');
+    container.innerHTML = html;
+  } catch (err) {
+    console.error('Помилка розрахунку пилу:', err);
+  }
+}
+
+// ROI калькулятор
+async function loadROICalculator() {
+  try {
+    const res = await fetch(`${API_PREFIX}/roi`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        panel_cost_usd: 5000,
+        panel_power_w: 300,
+        installation_cost: 10000,
+        lunar_power_price_usd: 100
+      })
+    });
+    
+    const data = await res.json();
+    
+    const html = `
+      <div class="space-y-6 mt-6">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-xl">
+            <p class="text-sm text-gray-400">Інвестиція</p>
+            <p class="text-2xl font-bold text-cyan-400">\$${data.total_investment_usd}</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl">
+            <p class="text-sm text-gray-400">Щомісячний дохід</p>
+            <p class="text-2xl font-bold text-emerald-400">\$${data.monthly_revenue_usd}</p>
+          </div>
+        </div>
+        
+        <div class="glass-card p-6 rounded-2xl bg-gradient-to-r from-purple-900/30 to-pink-900/30">
+          <h3 class="text-yellow-400 font-bold mb-4 text-lg">📊 ROI (Return on Investment)</h3>
+          <div class="space-y-3">
+            <p class="text-sm">
+              <strong>Окупність:</strong> 
+              <span class="text-cyan-400 font-bold text-lg">${data.roi_months} місяців</span> 
+              (~${data.roi_years} років)
+            </p>
+            <p class="text-sm">
+              <strong>Річний прибуток:</strong> 
+              <span class="text-emerald-400 font-bold text-lg">\$${data.yearly_profit_usd}</span>
+            </p>
+            <p class="text-lg font-bold mt-4 px-4 py-2 bg-black/40 rounded-lg">
+              ${data.viability}
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    const container = document.getElementById('roiContainer') || createAdvancedSection('roiContainer', 'ROI Калькулятор для Місячної Станції');
+    container.innerHTML = html;
+  } catch (err) {
+    console.error('Помилка ROI:', err);
+  }
+}
+
+// Допоміжна функція для створення нової секції
+function createAdvancedSection(id, title) {
+  const tabContent = document.getElementById('tabContent4');
+  if (!tabContent) return null;
+  
+  const section = document.createElement('div');
+  section.id = id;
+  section.className = 'mt-8';
+  section.innerHTML = `<h2 class="text-2xl font-bold text-cyan-400 mb-6">${title}</h2>`;
+  
+  tabContent.appendChild(section);
+  return section;
+}
+
+// Оновлення при завантаженні
+window.addEventListener('load', () => {
+  const tabContent4 = document.getElementById('tabContent4');
+  if (tabContent4) {
+    loadEarthMoonComparison();
+    loadDustImpact();
+    loadROICalculator();
+  }
+});

@@ -1,6 +1,35 @@
-# 🌕 Luna AI Research Center - Об'єднана система
+# 🌕 Luna AI Research Center - Об'єднана PWA система
 
-Це єдина платформа для трьох революційних дослідницьких проектів, присвячених вивченню умов Місяця.
+> **Progressive Web App** для наукового моделювання умов Місяця з можливістю встановлення як нативного додатку
+
+[![PWA](https://img.shields.io/badge/PWA-Ready-green)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-blue)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue)](https://postgresql.org/)
+
+Це єдина платформа для чотирьох революційних дослідницьких проектів, присвячених вивченню умов Місяця та місії Artemis 2.
+
+## ✨ Ключові особливості
+
+### 🛰️ PWA Можливості
+- **Встановлення як додаток** - працює офлайн
+- **Service Worker** - кешування ресурсів
+- **Responsive дизайн** - адаптивний для всіх пристроїв
+- **Push сповіщення** - системні повідомлення
+- **Автономний режим** - працює без інтернету
+
+### 🔬 Наукові модулі
+- **LunaEnergy AI** - Ефективність сонячних панелей на Місяці
+- **LunaRadiation AI** - Моделювання захисту від космічної радіації
+- **LunaThermo AI** - Теплопередача та терморегуляція
+- **Artemis 2 Lab** - Траєкторії, ΔV та радіаційні оцінки місії
+
+### ⚡ Потужний функціонал
+- **Глобальний пошук** - пошук по всіх модулях
+- **Експорт даних** - CSV та JSON експорт
+- **Реальний час** - live оновлення даних
+- **Статистика системи** - моніторинг продуктивності
+- **Темна/світла тема** - адаптивний інтерфейс
+- **Мобільна навігація** - touch-friendly UI
 
 ## 📂 Структура проекту
 
@@ -26,28 +55,77 @@ Luna-AI-Unified/
         └── style.css
 ```
 
+## � Встановлення PWA
+
+### На комп'ютері (Chrome/Edge)
+1. Відкрийте https://your-domain.com
+2. Натисніть кнопку "📱 Встановити додаток" в правому нижньому куті
+3. Підтвердіть встановлення
+
+### На мобільному (Android/iOS)
+1. Відкрийте сайт у браузері
+2. Натисніть "Поділитися" → "Додати на головний екран"
+3. Підтвердіть встановлення
+
 ## 🚀 Встановлення та запуск
 
-### 1. Установка залежностей
+### 1. Клонування репозиторію
+```bash
+git clone https://github.com/your-username/luna-ai-research-center.git
+cd luna-ai-research-center/Luna-AI-Unified
+```
+
+### 2. Установка залежностей
 ```bash
 npm install
 ```
 
-### 2. Налаштування змінних середовища
-Скопіюйте `.env.example` до `.env` та вставте вашу DATABASE_URL:
+### 3. Налаштування змінних середовища
 ```bash
 cp .env.example .env
 ```
 
 Відредагуйте `.env`:
-```
+```env
 DATABASE_URL=postgresql://user:password@host:port/database
 PORT=3000
+NODE_ENV=production
 ```
 
-### 3. Запуск сервера
+### 4. Ініціалізація БД
+```bash
+# PostgreSQL повинна бути запущена
+npm run init-db
+```
+
+### 5. Запуск сервера
 ```bash
 npm start
+```
+
+### 6. Відкриття в браузері
+```
+http://localhost:3000
+```
+
+## 📊 API Endpoints
+
+### Системні
+- `GET /api/system/info` - Інформація про систему
+- `GET /api/system/stats` - Статистика експериментів
+
+### Модулі
+- `GET /api/modules` - Список всіх модулів
+- `GET /api/energy/*` - Енергетичні розрахунки
+- `GET /api/radiation/*` - Радіаційні розрахунки
+- `GET /api/thermo/*` - Термічні розрахунки
+- `GET /api/artemis/*` - Artemis місії
+
+### Експорт даних
+- `GET /api/energy/experiments` + експорт CSV
+- `GET /api/radiation/experiments` + експорт CSV
+- `GET /api/thermo/experiments` + експорт CSV
+- `GET /api/system/export-all` - всі дані в JSON
 ```
 
 Сервер запуститься на `http://localhost:3000`

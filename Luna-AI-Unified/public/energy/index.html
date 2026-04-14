@@ -42,6 +42,8 @@
                         class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-xl font-medium transition-all text-sm md:text-base">Порівняння</button>
                     <button onclick="switchTab(3)" id="tab3"
                         class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-xl font-medium transition-all text-sm md:text-base">Теорія</button>
+                    <button onclick="switchTab(4)" id="tab4"
+                        class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-xl font-medium transition-all text-sm md:text-base">Науково</button>
                 </nav>
 
                 <button id="themeToggle" class="text-3xl hover:scale-110 transition-transform" title="Змінити тему">
@@ -235,6 +237,37 @@
                         і охолоджуватися до -170°C вночі. У нашій моделі ми фокусуємося на геометрії та пилі як основних факторах.
                     </p>
                 </section>
+            </div>
+        </div>
+
+        <!-- TAB 4: НАУКОВІ ФУНКЦІЇ -->
+        <div id="tabContent4" class="hidden">
+            <div class="glass-card p-8 rounded-3xl mb-10">
+                <h2 class="text-3xl font-bold text-center text-cyan-300 mb-2">🔬 Розширена Наукова Аналітика</h2>
+                <p class="text-center text-gray-400 mb-8">Дослідження Місячної енергетики на найвищому рівні</p>
+            </div>
+
+            <!-- Порівняння Земля vs Місяць -->
+            <div id="comparisonContainer" class="glass-card p-8 rounded-3xl mb-8">
+                <h3 class="text-2xl font-bold text-cyan-300 mb-6">Порівняння Земля vs Місяць</h3>
+                <div class="animate-pulse">Завантаження...</div>
+            </div>
+
+            <!-- Вплив пилу -->
+            <div id="dustContainer" class="glass-card p-8 rounded-3xl mb-8">
+                <h3 class="text-2xl font-bold text-yellow-300 mb-6">💨 Вплив космічного пилу на ефективність</h3>
+                <div class="mb-6">
+                    <label class="block text-cyan-300 mb-3">Рівень забруднення (%)</label>
+                    <input type="range" id="dustPercentage" min="0" max="100" value="50" class="w-full h-2 bg-black/40 rounded-lg cursor-pointer">
+                    <button onclick="loadDustImpact()" class="mt-4 px-6 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg font-bold">Розрахувати</button>
+                </div>
+                <div class="animate-pulse">Завантаження...</div>
+            </div>
+
+            <!-- ROI калькулятор -->
+            <div id="roiContainer" class="glass-card p-8 rounded-3xl">
+                <h3 class="text-2xl font-bold text-emerald-300 mb-6">📊 ROI Калькулятор для Місячної Станції</h3>
+                <div class="animate-pulse">Завантаження...</div>
             </div>
         </div>
     </div>
