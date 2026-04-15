@@ -7,28 +7,30 @@ const API_PREFIX = '/api/energy';
 
 // Перемикання теми
 const themeToggle = document.getElementById("themeToggle");
-themeToggle.addEventListener("click", () => {
-  const body = document.body;
-  if (body.dataset.theme === "dark") {
-    body.dataset.theme = "light";
-    body.classList.remove("bg-[#05070f]", "text-white");
-    body.classList.add("bg-gray-100", "text-gray-900");
-    themeToggle.textContent = "☀️";
-    document.querySelectorAll(".glass-card").forEach((el) => {
-      el.style.background = "rgba(255,255,255,0.75)";
-      el.style.borderColor = "rgba(59,130,246,0.3)";
-    });
-  } else {
-    body.dataset.theme = "dark";
-    body.classList.remove("bg-gray-100", "text-gray-900");
-    body.classList.add("bg-[#05070f]", "text-white");
-    themeToggle.textContent = "🌙";
-    document.querySelectorAll(".glass-card").forEach((el) => {
-      el.style.background = "rgba(15,23,42,0.65)";
-      el.style.borderColor = "rgba(103,232,249,0.2)";
-    });
-  }
-});
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const body = document.body;
+    if (body.dataset.theme === "dark") {
+      body.dataset.theme = "light";
+      body.classList.remove("bg-[#05070f]", "text-white");
+      body.classList.add("bg-gray-100", "text-gray-900");
+      themeToggle.textContent = "☀️";
+      document.querySelectorAll(".glass-card").forEach((el) => {
+        el.style.background = "rgba(255,255,255,0.75)";
+        el.style.borderColor = "rgba(59,130,246,0.3)";
+      });
+    } else {
+      body.dataset.theme = "dark";
+      body.classList.remove("bg-gray-100", "text-gray-900");
+      body.classList.add("bg-[#05070f]", "text-white");
+      themeToggle.textContent = "🌙";
+      document.querySelectorAll(".glass-card").forEach((el) => {
+        el.style.background = "rgba(15,23,42,0.65)";
+        el.style.borderColor = "rgba(103,232,249,0.2)";
+      });
+    }
+  });
+}
 
 // Перемикання вкладок
 function switchTab(tabIndex) {

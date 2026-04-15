@@ -78,17 +78,25 @@
     
     <div class="relative z-10 min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="pt-16 pb-8 text-center relative">
-            <button id="mobileMenuBtn" class="md:hidden absolute top-4 right-4 z-50 p-2 bg-white/10 rounded-lg">
-                <span class="text-2xl">☰</span>
-            </button>
-            <div class="text-8xl mb-4 drop-shadow-[0_0_30px_#67e8f9]">🌕</div>
-            <h1 class="text-6xl md:text-7xl font-bold tracking-widest gradient-text mb-4" style="font-family: 'Orbitron', sans-serif;">
-                LUNA AI CENTER
-            </h1>
-            <p class="text-cyan-300/90 text-2xl drop-shadow-lg">Об'єднана система досліджень Місяця</p>
-            <p class="text-cyan-400/70 text-lg mt-2">Енергія • Радіація • Теплопередача • Artemis 2</p>
-        </header>
+<header class="site-header glass-card p-6 mb-8 rounded-3xl">
+                <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <a href="/" class="logo-link">
+                        <span class="text-2xl">🚀</span>
+                        <span>LUNA AI CENTER</span>
+                    </a>
+                    <nav class="header-nav">
+                        <a href="/" class="nav-link">Головна</a>
+                        <a href="/energy" class="nav-link">LunaEnergy</a>
+                        <a href="/radiation" class="nav-link">LunaRadiation</a>
+                        <a href="/thermo" class="nav-link">LunaThermo</a>
+                        <a href="/artemis" class="nav-link">Artemis 2</a>
+                        <a href="/analytics.html" class="nav-link">Аналітика</a>
+                        <a href="/about.html" class="nav-link">Про нас</a>
+                        <a href="/privacy-policy.html" class="nav-link">Політика</a>
+                        <a href="/contact.html" class="nav-link">Контакт</a>
+                    </nav>
+                </div>
+            </header>
 
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="fixed inset-0 bg-black/90 backdrop-blur-lg z-40 hidden md:hidden">

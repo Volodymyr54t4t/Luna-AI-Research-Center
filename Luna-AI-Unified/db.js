@@ -1,12 +1,13 @@
 require('dotenv').config();
 const { Pool } = require('pg');
 
-// Підключення до бази даних PostgreSQL
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL не встановлено в .env');
+}
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
 // Ініціалізація всіх таблиць
@@ -74,7 +75,16 @@ async function initializeDatabase() {
 
     console.log('🌕 Усі таблиці ініціалізовано успішно!');
   } catch (err) {
-    console.error('❌ Помилка ініціалізації БД:', err.message);
+    console.error('❌ Помилка ініціалізації БД:', err);
+    if (err && err.code === 'ECONNREFUSED') {
+      console.error('🔧 PostgreSQL відмовив у з’єднанні. Перевірте, чи запущено Postgres і чи правильний DATABASE_URL.');
+    }
+    try {
+      const dbUrl = new URL(process.env.DATABASE_URL);
+      console.error(`🔎 DATABASE: ${dbUrl.protocol}//${dbUrl.hostname}:${dbUrl.port}${dbUrl.pathname}`);
+    } catch (parseErr) {
+      console.error('🔎 Невдача розбору DATABASE_URL:', parseErr.message);
+    }
   }
 }
 

@@ -12,6 +12,28 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.post('/api/contact/send', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    if (!name || !subject || !message) {
+      return res.status(400).json({ error: 'Будь ласка, заповніть ім’я, тему та повідомлення.' });
+    }
+
+    // Замість Telegram просто підтверджуємо прийом повідомлення
+    console.log('Contact form received:', {
+      name,
+      email: email || 'не вказано',
+      subject,
+      message
+    });
+
+    res.json({ success: true, message: 'Повідомлення успішно отримано.' });
+  } catch (error) {
+    console.error('Contact form error:', error);
+    res.status(500).json({ error: error.message || 'Не вдалося обробити повідомлення.' });
+  }
+});
+
 // ==================== ЕНЕРГЕТИЧНИЙ МОДУЛЬ (LunaEnergy AI) ====================
 
 // POST /api/energy/calculate - Розрахунок ефективності сонячних панелей
