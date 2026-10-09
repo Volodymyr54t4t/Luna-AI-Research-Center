@@ -1,7 +1,9 @@
-const CACHE_NAME = 'luna-ai-v1.0.0';
+const CACHE_NAME = 'luna-ai-v1.1.0';
 const urlsToCache = [
   '/',
   '/index.html',
+  '/css/common.css',
+  '/js/home.js',
   '/energy/',
   '/energy/index.html',
   '/radiation/',
@@ -11,6 +13,9 @@ const urlsToCache = [
   '/artemis/',
   '/artemis/index.html',
   '/analytics.html',
+  '/about.html',
+  '/contact.html',
+  '/privacy-policy.html',
   '/manifest.json',
   'https://cdn.tailwindcss.com',
   'https://cdn.jsdelivr.net/npm/chart.js'
